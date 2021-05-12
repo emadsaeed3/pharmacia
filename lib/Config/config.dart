@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:pharma/components/authservice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -17,7 +19,7 @@ class PharmaciaApp
    static String collectionOrders = "orders";
    static String userCartList = 'userCart';
    static String subCollectionAddress = 'userAddress';
-   static final String userName = auth.displayName;
+   static final String userName =  auth.displayName;
    static final String userEmail = auth.email;
    static final String userPhotoUrl = auth.photoURL;
    static final String userUID = auth.uid;

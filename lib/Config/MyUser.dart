@@ -1,10 +1,11 @@
 class MyUser {
 
+  String userName;
   String email;
   String password;
   String userId;
 
-  MyUser(this.email,this.password,this.userId);
+  MyUser(this.userName,this.email,this.password,this.userId);
 
 
 }
