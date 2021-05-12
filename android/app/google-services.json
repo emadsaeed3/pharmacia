@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "369497974064",
+    "project_id": "pharmacia-9644b",
+    "storage_bucket": "pharmacia-9644b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369497974064:android:65abf6a4efa5032da014f5",
+        "android_client_info": {
+          "package_name": "com.emad.pharma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369497974064-cdhog5iaist9tgfv7ib3147t0ovbqdp8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDimX8GkHdtlfnVx6qskj_SAdQVOwknAsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369497974064-cdhog5iaist9tgfv7ib3147t0ovbqdp8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
