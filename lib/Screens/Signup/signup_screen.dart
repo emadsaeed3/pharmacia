@@ -47,7 +47,7 @@ class _SignUpFormState extends State<SignUpForm> {
     String  jsonString = converObjectToString(user);
     prefe.setString("user", jsonString);
     print("Saved Offline");
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen()));
 
   }
 
@@ -68,7 +68,7 @@ class _SignUpFormState extends State<SignUpForm> {
     }).then((value) {
       print('User Added');
       saveAccOff(user);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen()));
     }).catchError((error) => print("Error"));
   }
 

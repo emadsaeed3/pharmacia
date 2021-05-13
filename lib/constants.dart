@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharma/size_config.dart';
 
 
-const kPrimaryColor = Color(0xFF225602);
+const kPrimaryColor =  Color(0xFF73B865);
 const backgroundColor = Color(0xFFF3F9F1);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(

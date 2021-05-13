@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:pharma/components/authservice.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'constants.dart';
+import 'package:provider/provider.dart';
+import 'package:pharma/components/dark_theme_provider.dart';
+import 'package:pharma/components/theme_data.dart';
 
 
 
@@ -16,15 +18,32 @@ void main() async {
 
 
 class MyApp extends StatelessWidget {
+  DarkThemeProvider themeChangeProvider = DarkThemeProvider();
+
+  void getCurrentAppTheme() async {
+    themeChangeProvider.darkTheme =
+    await themeChangeProvider.darkThemePreferences.getTheme();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
+    return MultiProvider(
+        providers: [
+        ChangeNotifierProvider(create: (_) {
+      return themeChangeProvider;
+    })
+    ],
+    child:
+    Consumer<DarkThemeProvider>(builder: (context, themeData, child) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pharmacia',
       home:SplashScreen(),
-      theme: ThemeData(accentColor: backgroundColor),
-
+      theme: Styles.themeData(themeChangeProvider.darkTheme, context),
     );
+    }));
   }
 }
 
