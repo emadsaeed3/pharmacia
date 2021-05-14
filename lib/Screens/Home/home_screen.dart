@@ -1,8 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharma/components/bottom_nav_bar.dart';
-import '../cart.dart';
-import '../search.dart';
+import '../../constants.dart';
+import '../Carts/cart.dart';
+import '../pres_upload.dart';
 import '../user_info.dart';
 import 'menu_dashboard_layout.dart';
 
@@ -16,22 +18,23 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreen extends State<MainScreen> {
   int selectedIndex = 0;
-  final screen = [ MenuDashboardPage(), Search(), Cart(), UserInfo()];
+  final screen = [ MenuDashboardPage(), PreUpload(), Cart(), UserInfo()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         height: 50,
-        backgroundColor: Color(0xFF73B865),
-        buttonBackgroundColor: Color(0xFFF3F9F1),
+        color: kPrimaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
+        buttonBackgroundColor: kPrimaryColor,
         index: selectedIndex,
         key: NavbarKey.getKey(),
         items: <Widget>[
-          Icon(Icons.home, size: 15,color: Color(0xFF73B865)),
-          Icon(Icons.search, size: 15,color: Color(0xFF73B865),),
-          Icon(Icons.shopping_cart, size: 15,color: Color(0xFF73B865)),
-          Icon(Icons.person, size: 15,color: Color(0xFF73B865))
+          Icon(Icons.home, size: 15,color: Colors.white),
+          Icon(CupertinoIcons.camera_fill, size: 15,color: Colors.white,),
+          Icon(Icons.shopping_cart, size: 15,color: Colors.white),
+          Icon(Icons.person, size: 15,color: Colors.white)
         ],
         onTap: (index){
           setState(() {

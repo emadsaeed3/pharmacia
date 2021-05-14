@@ -9,10 +9,7 @@ import 'package:pharma/components/search_bar.dart';
 import '../../constants.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-
-
-
-
+import '../Carts/cart.dart';
 
 
 
@@ -64,7 +61,7 @@ class _MenuDashboardPageState extends State<MenuDashboardPage> with SingleTicker
 
 
     return Scaffold(
-      backgroundColor: Color(0xFF88BB7E),
+      backgroundColor: Theme.of(context).focusColor,
       body: Stack(
         children: <Widget>[
           menu(context),
@@ -205,7 +202,6 @@ class _MenuDashboardPageState extends State<MenuDashboardPage> with SingleTicker
         scale: _scaleAnimation,
         child: Material(
           animationDuration: duration,
-          borderRadius: BorderRadius.all(Radius.circular(30)),
           elevation: 8,
           color: Colors.white,
           child: SingleChildScrollView(
@@ -237,6 +233,9 @@ class _MenuDashboardPageState extends State<MenuDashboardPage> with SingleTicker
                       InkWell(
                         child: Icon(Icons.shopping_cart, color: Color(0xFF73B865)),
                         onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context){
+                            return Cart();
+                          }));
                         },
                       ),
                     ],
