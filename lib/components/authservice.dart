@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:pharma/Screens/Home/home_screen.dart';
 import 'package:pharma/Screens/Welcome/welcome_screen.dart';
 import 'form_error.dart';
-
-
 
 
 class AuthService {
@@ -31,8 +30,8 @@ class AuthService {
   }
 
 
-// Signup a new user
-  signUp(String name,String email, String password) async {
+ // Signup a new user
+  signUp(String name,String email,String password,String phone) async {
     return FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
 
@@ -86,17 +85,10 @@ class AuthService {
   }
 
 
-
-
-
-
-
-
-
-
   resetPasswordLink(String email) {
     FirebaseAuth.instance.sendPasswordResetEmail(email: email);}
 }
+
 
 signIn(String email, String password, context) {
   FirebaseAuth.instance
