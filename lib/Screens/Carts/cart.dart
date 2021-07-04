@@ -13,11 +13,13 @@ class Cart extends StatelessWidget {
     ): Scaffold(
         bottomSheet: checkoutSection(context),
         appBar: AppBar(
-        title: Text('Cart Items Count'),
-        actions: [
+          centerTitle: true,
+          title: Text('Cart Items Count', style: TextStyle(color: Colors.white)),
+          backgroundColor: kPrimaryColor,
+          actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.delete),
+            icon: Icon(Icons.delete,color: Colors.white,),
           )
         ],
       ),
