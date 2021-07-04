@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pharma/Config/MyUser.dart';
 import 'package:pharma/Screens/Home/home_screen.dart';
+import 'package:pharma/Screens/OTP/otp_screen.dart';
 import 'package:pharma/Screens/Welcome/welcome_screen.dart';
 import 'package:pharma/components/authservice.dart';
 import 'package:pharma/components/custom_surfix_icon.dart';
@@ -14,6 +15,11 @@ import '../../constants.dart';
 import '../../size_config.dart';
 
 
+enum MobileVerificationState {
+  SHOW_MOBILE_FORM_STATE,
+  SHOW_OTP_FORM_STATE,
+}
+
 class SignUpForm  extends StatefulWidget {
   @override
   _SignUpFormState createState() => _SignUpFormState();
@@ -21,9 +27,24 @@ class SignUpForm  extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final formKey = new GlobalKey<FormState>();
-  String name, email, password;
-  String cpassword;
+  String name, email, password,phone;
   final List<String> errors = [];
+  MobileVerificationState currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  final TextEditingController cellnumberController = new TextEditingController();
+  final TextEditingController otpController = new TextEditingController();
+  var verificationCode = '';
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void dispose() {
+    cellnumberController.dispose();
+    otpController.dispose();
+    super.dispose();}
+
 
 
   void addError({String error}) {
@@ -40,8 +61,6 @@ class _SignUpFormState extends State<SignUpForm> {
       });
   }
 
-
-
   saveAccOff(MyUser user) async{
     SharedPreferences prefe = await SharedPreferences.getInstance();
     String  jsonString = converObjectToString(user);
@@ -51,26 +70,25 @@ class _SignUpFormState extends State<SignUpForm> {
 
   }
 
-
   String converObjectToString (MyUser user) {
     String json =  jsonEncode(user);
-    print('This fuck is ${json}');
-    return json;
-  }
-
+    return json;}
 
   saveAccOn(MyUser user){
     String userId = user.userId;
     FirebaseFirestore.instance.collection("users").doc(userId).set({
       'name': user.userName,
-      'email': user.email,
+      'email': user.userEmail,
       'password': user.password,
+      'phone': user.phone,
     }).then((value) {
       print('User Added');
       saveAccOff(user);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OTPScreen(this.phone)));
     }).catchError((error) => print("Error"));
   }
+
+
 
 
 
@@ -111,6 +129,7 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   _buildSignupForm() {
+    final node = FocusScope.of(context);
     return Padding(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: ListView(children: [
@@ -182,43 +201,36 @@ class _SignUpFormState extends State<SignUpForm> {
               value.isEmpty ? 'Password is required' : null),
           SizedBox(height: SizeConfig.safeBlockVertical * 10),
           TextFormField(
+              keyboardType: TextInputType.phone,
+              controller: cellnumberController,
+              textInputAction: TextInputAction.done,
+              onFieldSubmitted: (_) => node.unfocus(),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(30.0, 10.0, 20.0, 10.0),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                labelText: 'CONFIRM PASSWORD',
-                hintText: "Re-enter your password",
+                border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+                labelText: 'Phone',
+                hintText: "Enter your Phone",
                 floatingLabelBehavior: FloatingLabelBehavior.always,
-                suffixIcon: CustomSurffixIcon(svgIcon: "icons/Lock.svg"),
-                labelStyle: TextStyle(fontSize: 12.0, color: Colors.black.withOpacity(0.5)),),
-              obscureText: true,
+                suffixIcon: CustomSurffixIcon(svgIcon: "icons/Phone.svg"),
+                labelStyle: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.black.withOpacity(0.5)),),
               onChanged: (value) {
-                if (value.isNotEmpty) {
-                  removeError(error: "Please Enter your password");
-                } else if (value.isNotEmpty && password == cpassword) {
-                  removeError(error: "Passwords don't match");
-                }
-                cpassword = value;
-              },
-            validator: (value) {
-              if (value.isEmpty) {
-                return "Please Enter your password";
-              } else if ((password != value)) {
-                return "Passwords don't match";
-              }
-              return null;
-            },
-          ),
+                this.phone = value;},
+              validator: (value) =>
+              value.isEmpty ? 'Phone is required' : null ),
           SizedBox(height: SizeConfig.safeBlockVertical * 10),
           DefaultButton(
               text: "SUBMIT",
               press:(){
                 if (checkFields())
-                  AuthService().signUp(name,email, password).then((value) {
+                  AuthService().signUp(name,email,password,phone).then((value) {
                     // ignore: non_constant_identifier_names
                     User Fuser = FirebaseAuth.instance.currentUser;
-                     String userId = Fuser.uid;
-                    MyUser user = MyUser(name, email, password, userId);
-                  return saveAccOn(user);
+                    String userId = Fuser.uid;
+                    MyUser user = MyUser(name,email,password,phone, userId);
+                    return saveAccOn(user);
                   }).catchError((e) {
                     ErrorHandler().errorDialog(context, e);
                   });
@@ -236,8 +248,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     style: TextStyle(
                         color: kPrimaryColor,
                      )))]),
-          SizedBox(height: SizeConfig.screenHeight * 0.08),
-          SizedBox(height: SizeConfig.safeBlockVertical *10),
+          SizedBox(height: SizeConfig.screenHeight * 0.01),
           Text(
             'By continuing your confirm that you agree \nwith our Term and Condition',
             textAlign: TextAlign.center,
