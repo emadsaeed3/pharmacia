@@ -1,11 +1,21 @@
+import 'package:intl_phone_field/phone_number.dart';
+
 class MyUser {
 
-  String userName;
-  String email;
-  String password;
-  String userId;
+  String userName,
+         userEmail,
+         password,
+         phone,
+         userId;
 
-  MyUser(this.userName,this.email,this.password,this.userId);
+
+      MyUser(
+              this.userName,
+              this.userEmail,
+              this.password,
+              this.phone,
+              this.userId
+          );}
 
 
-}
+
