@@ -27,7 +27,7 @@ class SignUpForm  extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final formKey = new GlobalKey<FormState>();
-  String name, email, password,phone;
+  String name, email, password,phone,role;
   final List<String> errors = [];
   MobileVerificationState currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
   final TextEditingController cellnumberController = new TextEditingController();
@@ -81,6 +81,7 @@ class _SignUpFormState extends State<SignUpForm> {
       'email': user.userEmail,
       'password': user.password,
       'phone': user.phone,
+      'role': user.role,
     }).then((value) {
       print('User Added');
       saveAccOff(user);
@@ -88,11 +89,6 @@ class _SignUpFormState extends State<SignUpForm> {
     }).catchError((error) => print("Error"));
   }
 
-
-
-
-
-  //To check fields during submit
   checkFields() {
     final form = formKey.currentState;
     if (form.validate()) {
@@ -102,7 +98,6 @@ class _SignUpFormState extends State<SignUpForm> {
     return false;
   }
 
-  //To Validate email
   String validateEmail(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -225,11 +220,11 @@ class _SignUpFormState extends State<SignUpForm> {
               text: "SUBMIT",
               press:(){
                 if (checkFields())
-                  AuthService().signUp(name,email,password,phone).then((value) {
+                  AuthService().signUp(name,email,password,phone,role).then((value) {
                     // ignore: non_constant_identifier_names
                     User Fuser = FirebaseAuth.instance.currentUser;
                     String userId = Fuser.uid;
-                    MyUser user = MyUser(name,email,password,phone, userId);
+                    MyUser user = MyUser(name,email,password,phone,role, userId);
                     return saveAccOn(user);
                   }).catchError((e) {
                     ErrorHandler().errorDialog(context, e);
