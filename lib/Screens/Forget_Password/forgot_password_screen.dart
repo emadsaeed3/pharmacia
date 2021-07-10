@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharma/components/authservice.dart';
 import 'package:pharma/components/custom_surfix_icon.dart';
-
 import '../../constants.dart';
 import '../../size_config.dart';
 
@@ -12,20 +11,15 @@ class ResetPassword extends StatefulWidget {
 
 class _ResetPasswordState extends State<ResetPassword> {
   final formKey = new GlobalKey<FormState>();
-
   String email;
 
-  //To check fields during submit
   checkFields() {
     final form = formKey.currentState;
     if (form.validate()) {
       form.save();
-      return true;
-    }
-    return false;
-  }
+      return true;}
+    return false;}
 
-  //To Validate email
   String validateEmail(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -33,8 +27,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     if (!regex.hasMatch(value))
       return 'Enter Valid Email';
     else
-      return null;
-  }
+      return null;}
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +36,10 @@ class _ResetPasswordState extends State<ResetPassword> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("images/wallpaper.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
+                fit: BoxFit.cover,),),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: Form(key: formKey, child: _buildResetForm())));
-  }
+            child: Form(key: formKey, child: _buildResetForm())));}
 
   _buildResetForm() {
     return Padding(
@@ -65,15 +55,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                         fontSize: SizeConfig.safeBlockHorizontal * 40,
                         fontWeight: FontWeight.bold,)),],)),
           SizedBox(height: 5.0),
-          Container(
-              padding:
+          Container(padding:
               EdgeInsets.symmetric(horizontal: 80),
               height: 80.0,
               child: Stack(
                 children: [
                   Text( "Please enter your email and we will send you a link to return to your account",textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 12.0,color: Colors.black54)),],)),
-
           TextFormField(
               decoration: InputDecoration(
                   labelText: 'EMAIL',
@@ -84,15 +72,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                     fontSize: 12.0,
                     color: Colors.black.withOpacity(0.5)),),
               onChanged: (value) {
-                this.email = value;
-              },
+                this.email = value;},
               validator: (value) =>
               value.isEmpty ? 'Email is required' : validateEmail(value)),
           SizedBox(height: 50.0),
           GestureDetector(
-            onTap: () {
-              if (checkFields()) AuthService().resetPasswordLink(email);
-            },
+            onTap: () {if (checkFields()) AuthService().resetPasswordLink(email);},
             child: Container(
                 height: 50.0,
                 child: Material(
@@ -103,19 +88,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                     child: Center(
                         child: Text('RESET',
                             style: TextStyle(
-                                color: Colors.white))))),
-          ),
+                                color: Colors.white))))),),
           SizedBox(height: 20.0),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            InkWell(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
+            InkWell(onTap: () {
+                  Navigator.of(context).pop();},
                 child: Text('Go back',
                     style: TextStyle(
                         color: kPrimaryColor,
-                        decoration: TextDecoration.underline)))
-          ])
-        ]));
+                        decoration: TextDecoration.underline)))])]));
   }
 }
