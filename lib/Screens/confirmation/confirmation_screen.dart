@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/Screens/Home/home_screen.dart';
-import 'package:pharma/Screens/Home/menu_dashboard_layout.dart';
 import 'package:pharma/Screens/confirmation/cubit/cubit.dart';
 import 'package:pharma/Screens/confirmation/cubit/state.dart';
 import 'package:pharma/components/defultButton.dart';
@@ -13,6 +12,7 @@ class ConfirmationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           'Confirmation',
           style: TextStyle(color: Colors.white),
