@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/Screens/Home/cubit/state.dart';
@@ -32,3 +30,4 @@ class AllPharmaciesCubit extends Cubit<AllPharmaciesStates> {
     emit(CheckIndexState());
   }
 }
+
