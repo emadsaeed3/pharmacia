@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:list_tile_switch/list_tile_switch.dart';
-import 'package:pharma/components/dark_theme_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constants.dart';
+
 
 class UserInfo extends StatefulWidget {
   @override
@@ -16,21 +16,19 @@ class _UserInfoState extends State<UserInfo> {
   var top = 0.0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _scrollController =ScrollController();
+    _scrollController.addListener(() {setState(() {
+
+    });});
   }
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          'User Information',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: kPrimaryColor,
-      ),
+        title: Text('User Information', style: TextStyle(color: Colors.white),),
+        backgroundColor: kPrimaryColor,),
       body: Stack(
         children: [
           CustomScrollView(
@@ -41,49 +39,46 @@ class _UserInfoState extends State<UserInfo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    userListTile('Name', '', 3, context),
-                    userListTile('Email', '', 0, context),
-                    userListTile('Phone number', '4555', 1, context),
-                    userListTile('Address', "" , 2, context),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: userTitle('User settings'),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
-                    ListTileSwitch(
-                      value: themeChange.darkTheme,
-                      leading: Icon(CupertinoIcons.moon_circle_fill),
-                      onChanged: (value) {
-                        setState(() {
-                          themeChange.darkTheme = value;
-                        });
-                      },
-                      visualDensity: VisualDensity.comfortable,
-                      switchType: SwitchType.cupertino,
-                      switchActiveColor: Colors.green,
-                      title: Text('Dark theme'),
-                    ),
-                    userListTile('Logout', '', 4, context),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
+                    userListTile('Name', '', 0, context),
+                    userListTile('Email', 'Email sub', 1, context),
+                    userListTile('Phone number', '4555', 2, context),
+                    Divider(thickness: 1, color: Colors.grey,),
+                    userListTile('Logout', '', 3, context),],),)],),
+          _buildFab()],),);}
+
+
+  Widget _buildFab() {
+    final double defaultTopMargin = 200.0 - 4.0;
+    final double scaleStart = 160.0;
+    final double scaleEnd = scaleStart / 2;
+    double top = defaultTopMargin;
+    double scale = 1.0;
+    if (_scrollController.hasClients) {
+      double offset = _scrollController.offset;
+      top -= offset;
+      if (offset < defaultTopMargin - scaleStart) {
+        scale = 1.0;
+      } else if (offset < defaultTopMargin - scaleEnd) {
+        scale = (defaultTopMargin - scaleEnd - offset) / scaleEnd;
+      } else {
+        scale = 0.0;
+      }
+    }
+
+    return  Positioned(
+      top: top,
+      right: 16.0,
+      child:  Transform(
+        transform:  Matrix4.identity()..scale(scale),
+        alignment: Alignment.center,
       ),
     );
   }
 
-
-
   List<IconData> _userTileIcons = [
-    Icons.email,
+    Icons.person_outline,
+    Icons.mail,
     Icons.phone,
-    Icons.location_on,
-    Icons.person,
     Icons.exit_to_app_rounded
   ];
 
@@ -110,5 +105,44 @@ class _UserInfoState extends State<UserInfo> {
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
       ),
     );
+  }
+}
+
+
+abstract class AllUsersStates {}
+class AllUsersStateInitial extends AllUsersStates {}
+class AllUsersStateLoading extends AllUsersStates {}
+class AllUsersStateSuccess extends AllUsersStates {}
+class AllUsersStateError extends AllUsersStates
+{final error;
+AllUsersStateError(this.error);}
+class CheckIndexState extends AllUsersStates {}
+
+class AllUsersCubit extends Cubit<AllUsersStates> {
+  AllUsersCubit() : super(AllUsersStateInitial());
+
+  static AllUsersCubit get(context) => BlocProvider.of(context);
+  int checkIndex = 0 ;
+  List users = [];
+  List userID = [];
+
+  allUsers() {
+    emit(AllUsersStateLoading());
+    FirebaseFirestore.instance.collection('users').get().then((value) {
+      emit(AllUsersStateSuccess());
+      print('------------${users}-------------');
+      users = value.docs;
+      for (var doc in value.docs) {
+        var data = doc.data();
+        userID.add(doc.id);
+      }
+    }).catchError((e) {
+      emit(AllUsersStateError(e));
+    });
+  }
+
+  changeIndex(index){
+    checkIndex = index ;
+    emit(CheckIndexState());
   }
 }

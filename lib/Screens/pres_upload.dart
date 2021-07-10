@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,28 +13,6 @@ import 'package:pharma/components/ratingWidget.dart';
 import 'package:pharma/components/showToast.dart';
 import 'package:pharma/constants.dart';
 
-// class PreUpload extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//           height: 135,
-//           margin: const EdgeInsets.all(10),
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.only(
-//               bottomRight: const Radius.circular(16.0),
-//               topRight: const Radius.circular(16.0),
-//             ),
-//             color: Theme.of(context).backgroundColor,
-//           ),
-//           // margin: const EdgeInsets.symmetric(vertical: 40,horizontal: 200),
-//
-//           child: Text('Easy Process',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),)
-//       ),
-//     );
-//   }
-// }
-
 class PreUpload extends StatefulWidget {
   @override
   _PreUploadState createState() => _PreUploadState();
@@ -44,14 +21,10 @@ class PreUpload extends StatefulWidget {
 class _PreUploadState extends State<PreUpload> {
   File imageGallery;
   String imageLinkGallery = '';
-
   File imageCamera;
   String imageLinkCamera = '';
-
   List<File> imageFiles = [];
-
   List<String> imageLinks = [];
-
   final picker = ImagePicker();
 
   getImageGallery() async {
@@ -61,7 +34,6 @@ class _PreUploadState extends State<PreUpload> {
       if (pickedFile != null) {
         imageGallery = File(pickedFile.path);
         imageLinkGallery = '${pickedFile.path}';
-
         imageFiles.add(File(pickedFile.path));
         imageLinks.add('${pickedFile.path}');
       } else {
@@ -222,10 +194,6 @@ class _PreUploadState extends State<PreUpload> {
                           ],
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left: 12 ,top: 23),
-                      //   child: Text('Available Stores',style: TextStyle(fontWeight: FontWeight.bold),),
-                      // ),
                       SizedBox(
                         height: 8,
                       ),
@@ -247,10 +215,12 @@ class _PreUploadState extends State<PreUpload> {
                                 Tab(text: 'Padding'),
                               ],
                             ),
-                            SizedBox(height: 18,),
+                            SizedBox(
+                              height: 18,
+                            ),
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height/1.5,
+                              height: MediaQuery.of(context).size.height / 1.5,
                               child: TabBarView(
                                 children: <Widget>[
                                   InkWell(
@@ -261,21 +231,21 @@ class _PreUploadState extends State<PreUpload> {
                                       child: Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
                                                 height: 100,
                                                 width: 100,
                                                 decoration: BoxDecoration(
                                                     image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          '${pharmacies[0]['imageLink']}'),
-                                                    )),
+                                                  image: NetworkImage(
+                                                      '${pharmacies[0]['imageLink']}'),
+                                                )),
                                               ),
-                                           //   SizedBox(width: 10),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     '${pharmacies[0]['title']}',
@@ -284,7 +254,8 @@ class _PreUploadState extends State<PreUpload> {
                                                         color: kPrimaryColor),
                                                   ),
                                                   RatingWidget(
-                                                    rating: double.parse('${pharmacies[1]['rate']}'),
+                                                    rating: double.parse(
+                                                        '${pharmacies[1]['rate']}'),
                                                     color: Colors.orange,
                                                     size: 20.0,
                                                   ),
@@ -292,12 +263,14 @@ class _PreUploadState extends State<PreUpload> {
                                                       'Live traking - Contactless delivery',
                                                       style: TextStyle(
                                                           fontSize: 12,
-                                                          color: kPrimaryColor)),
+                                                          color:
+                                                              kPrimaryColor)),
                                                 ],
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  AllPharmaciesCubit.get(context)
+                                                  AllPharmaciesCubit.get(
+                                                          context)
                                                       .changeIndex(0);
                                                 },
                                                 child: Container(
@@ -305,9 +278,9 @@ class _PreUploadState extends State<PreUpload> {
                                                   height: 30,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                    BorderRadius.all(
-                                                        Radius.circular(
-                                                            60.0)),
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                60.0)),
                                                     color: checkIndex == 0
                                                         ? kPrimaryColor
                                                         : Colors.white,
@@ -319,10 +292,10 @@ class _PreUploadState extends State<PreUpload> {
                                                   child: ClipOval(
                                                     child: Center(
                                                         child: Icon(
-                                                          Icons.check,
-                                                          color: Colors.white,
-                                                          size: 15,
-                                                        )),
+                                                      Icons.check,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    )),
                                                   ),
                                                 ),
                                               ),
@@ -336,22 +309,21 @@ class _PreUploadState extends State<PreUpload> {
                                               indent: 50),
                                           SizedBox(height: 10),
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
                                                 height: 100,
                                                 width: 100,
                                                 decoration: BoxDecoration(
                                                     image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          '${pharmacies[1]['imageLink']}'),
-                                                    )),
+                                                  image: NetworkImage(
+                                                      '${pharmacies[1]['imageLink']}'),
+                                                )),
                                               ),
-                                           //   SizedBox(width: 10),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     '${pharmacies[1]['title']}',
@@ -360,7 +332,8 @@ class _PreUploadState extends State<PreUpload> {
                                                         color: kPrimaryColor),
                                                   ),
                                                   RatingWidget(
-                                                    rating: double.parse('${pharmacies[1]['rate']}'),
+                                                    rating: double.parse(
+                                                        '${pharmacies[1]['rate']}'),
                                                     color: Colors.orange,
                                                     size: 20.0,
                                                   ),
@@ -368,12 +341,14 @@ class _PreUploadState extends State<PreUpload> {
                                                       'Live traking - Contactless delivery',
                                                       style: TextStyle(
                                                           fontSize: 12,
-                                                          color: kPrimaryColor)),
+                                                          color:
+                                                              kPrimaryColor)),
                                                 ],
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  AllPharmaciesCubit.get(context)
+                                                  AllPharmaciesCubit.get(
+                                                          context)
                                                       .changeIndex(1);
                                                 },
                                                 child: Container(
@@ -381,9 +356,9 @@ class _PreUploadState extends State<PreUpload> {
                                                   height: 30,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                    BorderRadius.all(
-                                                        Radius.circular(
-                                                            60.0)),
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                60.0)),
                                                     color: checkIndex == 1
                                                         ? kPrimaryColor
                                                         : Colors.white,
@@ -395,10 +370,10 @@ class _PreUploadState extends State<PreUpload> {
                                                   child: ClipOval(
                                                     child: Center(
                                                         child: Icon(
-                                                          Icons.check,
-                                                          color: Colors.white,
-                                                          size: 15,
-                                                        )),
+                                                      Icons.check,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    )),
                                                   ),
                                                 ),
                                               ),
@@ -412,21 +387,21 @@ class _PreUploadState extends State<PreUpload> {
                                               indent: 50),
                                           SizedBox(height: 10),
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
                                                 height: 100,
                                                 width: 100,
                                                 decoration: BoxDecoration(
                                                     image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          '${pharmacies[2]['imageLink']}'),
-                                                    )),
+                                                  image: NetworkImage(
+                                                      '${pharmacies[2]['imageLink']}'),
+                                                )),
                                               ),
-                                           //   SizedBox(width: 10),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     '${pharmacies[2]['title']}',
@@ -435,7 +410,8 @@ class _PreUploadState extends State<PreUpload> {
                                                         color: kPrimaryColor),
                                                   ),
                                                   RatingWidget(
-                                                    rating: double.parse('${pharmacies[2]['rate']}'),
+                                                    rating: double.parse(
+                                                        '${pharmacies[2]['rate']}'),
                                                     color: Colors.orange,
                                                     size: 20.0,
                                                   ),
@@ -443,12 +419,14 @@ class _PreUploadState extends State<PreUpload> {
                                                       'Live traking - Contactless delivery',
                                                       style: TextStyle(
                                                           fontSize: 12,
-                                                          color: kPrimaryColor)),
+                                                          color:
+                                                              kPrimaryColor)),
                                                 ],
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  AllPharmaciesCubit.get(context)
+                                                  AllPharmaciesCubit.get(
+                                                          context)
                                                       .changeIndex(2);
                                                 },
                                                 child: Container(
@@ -456,9 +434,9 @@ class _PreUploadState extends State<PreUpload> {
                                                   height: 30,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                    BorderRadius.all(
-                                                        Radius.circular(
-                                                            60.0)),
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                60.0)),
                                                     color: checkIndex == 2
                                                         ? kPrimaryColor
                                                         : Colors.white,
@@ -470,10 +448,10 @@ class _PreUploadState extends State<PreUpload> {
                                                   child: ClipOval(
                                                     child: Center(
                                                         child: Icon(
-                                                          Icons.check,
-                                                          color: Colors.white,
-                                                          size: 15,
-                                                        )),
+                                                      Icons.check,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    )),
                                                   ),
                                                 ),
                                               ),
@@ -487,16 +465,23 @@ class _PreUploadState extends State<PreUpload> {
                                               indent: 50),
                                           SizedBox(height: 60),
                                           Padding(
-                                            padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
+                                            padding: const EdgeInsets.only(
+                                                left: 16,
+                                                right: 16,
+                                                bottom: 16),
                                             child: defaultButtonWithOutIcon(
                                               function: () {
-                                                navigateTo(context, AddressScreen(
-                                                  '${pharmacies[checkIndex]['title']}',
-                                                   'Argent',
-                                                ));
+                                                navigateTo(
+                                                    context,
+                                                    AddressScreen(
+                                                      '${pharmacies[checkIndex]['title']}',
+                                                      'Argent',
+                                                    ));
                                               },
                                               text: 'Process To Checkout',
-                                              width: MediaQuery.of(context).size.width,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
                                             ),
                                           )
                                         ],
@@ -511,21 +496,21 @@ class _PreUploadState extends State<PreUpload> {
                                       child: Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
                                                 height: 100,
                                                 width: 100,
                                                 decoration: BoxDecoration(
                                                     image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          '${pharmacies[0]['imageLink']}'),
-                                                    )),
+                                                  image: NetworkImage(
+                                                      '${pharmacies[0]['imageLink']}'),
+                                                )),
                                               ),
-                                             // SizedBox(width: 10),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     '${pharmacies[0]['title']}',
@@ -534,7 +519,8 @@ class _PreUploadState extends State<PreUpload> {
                                                         color: kPrimaryColor),
                                                   ),
                                                   RatingWidget(
-                                                    rating: double.parse('${pharmacies[0]['rate']}'),
+                                                    rating: double.parse(
+                                                        '${pharmacies[0]['rate']}'),
                                                     color: Colors.orange,
                                                     size: 20.0,
                                                   ),
@@ -542,7 +528,8 @@ class _PreUploadState extends State<PreUpload> {
                                                       'Live traking - Contactless delivery',
                                                       style: TextStyle(
                                                           fontSize: 12,
-                                                          color: kPrimaryColor)),
+                                                          color:
+                                                              kPrimaryColor)),
                                                 ],
                                               ),
                                               Container(
@@ -550,9 +537,9 @@ class _PreUploadState extends State<PreUpload> {
                                                 height: 30,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.all(
-                                                      Radius.circular(
-                                                          60.0)),
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              60.0)),
                                                   color: kPrimaryColor,
                                                   border: Border.all(
                                                     color: kPrimaryColor,
@@ -562,10 +549,10 @@ class _PreUploadState extends State<PreUpload> {
                                                 child: ClipOval(
                                                   child: Center(
                                                       child: Icon(
-                                                        Icons.check,
-                                                        color: Colors.white,
-                                                        size: 15,
-                                                      )),
+                                                    Icons.check,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  )),
                                                 ),
                                               ),
                                             ],
@@ -578,21 +565,21 @@ class _PreUploadState extends State<PreUpload> {
                                               indent: 50),
                                           SizedBox(height: 10),
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
                                                 height: 100,
                                                 width: 100,
                                                 decoration: BoxDecoration(
                                                     image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          '${pharmacies[1]['imageLink']}'),
-                                                    )),
+                                                  image: NetworkImage(
+                                                      '${pharmacies[1]['imageLink']}'),
+                                                )),
                                               ),
-                                             // SizedBox(width: 10),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     '${pharmacies[1]['title']}',
@@ -601,7 +588,8 @@ class _PreUploadState extends State<PreUpload> {
                                                         color: kPrimaryColor),
                                                   ),
                                                   RatingWidget(
-                                                    rating: double.parse('${pharmacies[1]['rate']}'),
+                                                    rating: double.parse(
+                                                        '${pharmacies[1]['rate']}'),
                                                     color: Colors.orange,
                                                     size: 20.0,
                                                   ),
@@ -609,7 +597,8 @@ class _PreUploadState extends State<PreUpload> {
                                                       'Live traking - Contactless delivery',
                                                       style: TextStyle(
                                                           fontSize: 12,
-                                                          color: kPrimaryColor)),
+                                                          color:
+                                                              kPrimaryColor)),
                                                 ],
                                               ),
                                               Container(
@@ -617,10 +606,10 @@ class _PreUploadState extends State<PreUpload> {
                                                 height: 30,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.all(
-                                                      Radius.circular(
-                                                          60.0)),
-                                                  color:  kPrimaryColor,
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              60.0)),
+                                                  color: kPrimaryColor,
                                                   border: Border.all(
                                                     color: kPrimaryColor,
                                                     width: 2.0,
@@ -629,10 +618,10 @@ class _PreUploadState extends State<PreUpload> {
                                                 child: ClipOval(
                                                   child: Center(
                                                       child: Icon(
-                                                        Icons.check,
-                                                        color: Colors.white,
-                                                        size: 15,
-                                                      )),
+                                                    Icons.check,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  )),
                                                 ),
                                               ),
                                             ],
@@ -645,21 +634,21 @@ class _PreUploadState extends State<PreUpload> {
                                               indent: 50),
                                           SizedBox(height: 10),
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
                                                 height: 100,
                                                 width: 100,
                                                 decoration: BoxDecoration(
                                                     image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          '${pharmacies[2]['imageLink']}'),
-                                                    )),
+                                                  image: NetworkImage(
+                                                      '${pharmacies[2]['imageLink']}'),
+                                                )),
                                               ),
-                                          //    SizedBox(width: 10),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     '${pharmacies[2]['title']}',
@@ -668,7 +657,8 @@ class _PreUploadState extends State<PreUpload> {
                                                         color: kPrimaryColor),
                                                   ),
                                                   RatingWidget(
-                                                    rating: double.parse('${pharmacies[2]['rate']}'),
+                                                    rating: double.parse(
+                                                        '${pharmacies[2]['rate']}'),
                                                     color: Colors.orange,
                                                     size: 20.0,
                                                   ),
@@ -676,7 +666,8 @@ class _PreUploadState extends State<PreUpload> {
                                                       'Live traking - Contactless delivery',
                                                       style: TextStyle(
                                                           fontSize: 12,
-                                                          color: kPrimaryColor)),
+                                                          color:
+                                                              kPrimaryColor)),
                                                 ],
                                               ),
                                               Container(
@@ -684,10 +675,10 @@ class _PreUploadState extends State<PreUpload> {
                                                 height: 30,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.all(
-                                                      Radius.circular(
-                                                          60.0)),
-                                                  color:  kPrimaryColor,
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              60.0)),
+                                                  color: kPrimaryColor,
                                                   border: Border.all(
                                                     color: kPrimaryColor,
                                                     width: 2.0,
@@ -696,10 +687,10 @@ class _PreUploadState extends State<PreUpload> {
                                                 child: ClipOval(
                                                   child: Center(
                                                       child: Icon(
-                                                        Icons.check,
-                                                        color: Colors.white,
-                                                        size: 15,
-                                                      )),
+                                                    Icons.check,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  )),
                                                 ),
                                               ),
                                             ],
@@ -712,17 +703,25 @@ class _PreUploadState extends State<PreUpload> {
                                               indent: 50),
                                           SizedBox(height: 60),
                                           Padding(
-                                            padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
+                                            padding: const EdgeInsets.only(
+                                                left: 16,
+                                                right: 16,
+                                                bottom: 16),
                                             child: defaultButtonWithOutIcon(
                                               function: () {
-                                                String pharmaciesName = '${pharmacies[0]['title']} , ${pharmacies[1]['title']} , ${pharmacies[2]['title']}';
-                                                navigateTo(context, AddressScreen(
-                                                  '${pharmaciesName.toString()}',
-                                                  'Padding',
-                                                ));
+                                                String pharmaciesName =
+                                                    '${pharmacies[0]['title']} , ${pharmacies[1]['title']} , ${pharmacies[2]['title']}';
+                                                navigateTo(
+                                                    context,
+                                                    AddressScreen(
+                                                      '${pharmaciesName.toString()}',
+                                                      'Padding',
+                                                    ));
                                               },
                                               text: 'Process To Checkout',
-                                              width: MediaQuery.of(context).size.width,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
                                             ),
                                           )
                                         ],
@@ -737,7 +736,6 @@ class _PreUploadState extends State<PreUpload> {
                       ),
                     ],
                   ),
-
                 ],
               ),
               fallback: (context) => Center(
@@ -750,314 +748,3 @@ class _PreUploadState extends State<PreUpload> {
     );
   }
 }
-//
-// child:  Expanded(
-// child: DefaultTabController(
-// length: 2, // length of tabs
-// initialIndex: 0,
-// child: Column(
-// crossAxisAlignment: CrossAxisAlignment.stretch,
-// children: <Widget>[
-// Container(
-// child: TabBar(
-// labelColor: kPrimaryColor,
-// unselectedLabelColor: Colors.black,
-// tabs: [
-// Tab(text: 'Argent'),
-// Tab(text: 'Padding'),
-// ],
-// ),
-// ),
-// Container(
-// height: double.infinity,
-// child: TabBarView(children: <Widget>[
-// InkWell(
-// onTap: () {},
-// child: Padding(
-// padding: const EdgeInsets.only(left: 16,right: 16),
-// child: Column(
-// children: [
-// Row(
-// children: [
-// Container(
-// height: 100,
-// width: 100,
-// decoration: BoxDecoration(
-// image: DecorationImage(
-// image: NetworkImage('${pharmacies[0]['imageLink']}'),
-// )),
-// ),
-// SizedBox(width: 10),
-// Column(
-// crossAxisAlignment: CrossAxisAlignment.start,
-// children: [
-// Text(
-// '${pharmacies[0]['title']}',
-// style:
-// TextStyle(fontSize: 18, color: kPrimaryColor),
-// ),
-// Row(
-// children: [
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// ],
-// ),
-// Text('Live traking - Contactless delivery',
-// style: TextStyle(
-// fontSize: 12, color: kPrimaryColor)),
-// ],
-// ),
-// GestureDetector(
-// onTap: (){
-// AllPharmaciesCubit.get(context).changeIndex(1);
-// },
-// child: Container(
-// width: 30,
-// height: 30,
-// decoration:
-// BoxDecoration(
-// borderRadius:
-// BorderRadius.all(Radius.circular(60.0)),
-// color: checkIndex == 1 ? kPrimaryColor : Colors.white,
-// border: Border.all(
-// color: kPrimaryColor,
-// width: 2.0,
-// ),
-// ),
-// child: ClipOval(
-// child: Center(
-// child: Icon(
-// Icons.check,
-// color: Colors.white,
-// size: 15,
-// )),
-// ),
-// ),
-// ),
-// ],
-// ),
-// SizedBox(height: 10),
-// Divider(
-// color: Colors.grey,
-// endIndent: 50,
-// height: 0.5,
-// indent: 50),
-// SizedBox(height: 10),
-// Row(
-// children: [
-// Container(
-// height: 100,
-// width: 100,
-// decoration: BoxDecoration(
-// image: DecorationImage(
-// image: NetworkImage('${pharmacies[1]['imageLink']}'),
-// )),
-// ),
-// SizedBox(width: 10),
-// Column(
-// crossAxisAlignment: CrossAxisAlignment.start,
-// children: [
-// Text(
-// '${pharmacies[1]['title']}',
-// style:
-// TextStyle(fontSize: 18, color: kPrimaryColor),
-// ),
-// Row(
-// children: [
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// ],
-// ),
-// Text('Live traking - Contactless delivery',
-// style: TextStyle(
-// fontSize: 12, color: kPrimaryColor)),
-// ],
-// ),
-// GestureDetector(
-// onTap: (){
-// AllPharmaciesCubit.get(context).changeIndex(2);
-// },
-// child: Container(
-// width: 30,
-// height: 30,
-// decoration:
-// BoxDecoration(
-// borderRadius:
-// BorderRadius.all(Radius.circular(60.0)),
-// color: checkIndex == 2
-// ? kPrimaryColor : Colors.white,
-// border: Border.all(
-// color: kPrimaryColor,
-// width: 2.0,
-// ),
-// ),
-// child: ClipOval(
-// child: Center(
-// child: Icon(
-// Icons.check,
-// color: Colors.white,
-// size: 15,
-// )),
-// ),
-// ),
-// ),
-// ],
-// ),
-// SizedBox(height: 10),
-// Divider(
-// color: Colors.grey,
-// endIndent: 50,
-// height: 0.5,
-// indent: 50),
-// SizedBox(height: 10),
-// Row(
-// children: [
-// Container(
-// height: 100,
-// width: 100,
-// decoration: BoxDecoration(
-// image: DecorationImage(
-// image: NetworkImage('${pharmacies[2]['imageLink']}'),
-// )),
-// ),
-// SizedBox(width: 10),
-// Column(
-// crossAxisAlignment: CrossAxisAlignment.start,
-// children: [
-// Text(
-// '${pharmacies[2]['title']}',
-// style:
-// TextStyle(fontSize: 18, color: kPrimaryColor),
-// ),
-// Row(
-// children: [
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// Icon(
-// Icons.star,
-// size: 20,
-// color: Colors.orange,
-// ),
-// ],
-// ),
-// Text('Live traking - Contactless delivery',
-// style: TextStyle(
-// fontSize: 12, color: kPrimaryColor)),
-// ],
-// ),
-// GestureDetector(
-// onTap: (){
-// AllPharmaciesCubit.get(context).changeIndex(3);
-// },
-// child: Container(
-// width: 30,
-// height: 30,
-// decoration:
-// BoxDecoration(
-// borderRadius:
-// BorderRadius.all(Radius.circular(60.0)),
-// color: checkIndex == 3
-// ? kPrimaryColor : Colors.white,
-// border: Border.all(
-// color: kPrimaryColor,
-// width: 2.0,
-// ),
-// ),
-// child: ClipOval(
-// child: Center(
-// child: Icon(
-// Icons.check,
-// color: Colors.white,
-// size: 15,
-// )),
-// ),
-// ),
-// ),
-// ],
-// ),
-// SizedBox(height: 10),
-// Divider(
-// color: Colors.grey,
-// endIndent: 50,
-// height: 0.5,
-// indent: 50),
-// SizedBox(height: 10),
-// ],
-// ),
-// ),
-// ),
-// InkWell(
-// onTap: () {},
-// child: Container(child: Center(child: Text('Padding'),),),
-// ),
-// ],
-// ),
-// ),
-// ],
-// ),
-// ),
-// ),
