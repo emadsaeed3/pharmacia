@@ -38,7 +38,6 @@ dependencies:
   font_awesome_flutter: ^9.0.0
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.22.0
-  google_sign_in: ^5.0.2
   cloud_firestore: ^1.0.6
   firebase_auth: ^1.1.1
   shared_preferences: ^2.0.5
@@ -50,6 +49,13 @@ dependencies:
   path_provider: ^2.0.1
   image: ^3.0.2
   intl:
+  flutter_bloc: ^7.0.0
+  conditional_builder: ^1.0.2
+  intl_phone_field: ^2.0.0
+  pinput: ^1.2.0
+
+
+
 
 dev_dependencies:
   async: ^2.5.0
@@ -73,7 +79,8 @@ flutter:
   assets:
     - images/
     - icons/
-    - fonts/
+    - assets/fonts/
+    - assets/flags/
     - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
