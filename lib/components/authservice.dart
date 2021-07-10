@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:intl_phone_field/phone_number.dart';
 import 'package:pharma/Screens/Home/home_screen.dart';
 import 'package:pharma/Screens/Welcome/welcome_screen.dart';
 import 'form_error.dart';
@@ -9,10 +8,6 @@ import 'form_error.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-
-
-
   handleAuth() {
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
@@ -21,25 +16,16 @@ class AuthService {
             return MainScreen();
           } else
             return WelcomeScreen();});}
-
-  //Sign out
   signOut(context) {
     FirebaseAuth.instance.signOut().then((value) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
     });
   }
-
-
- // Signup a new user
-  signUp(String name,String email,String password,String phone) async {
+  signUp(String name,String email,String password,String phone,String role) async {
     return FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
 
   }
-
-
-
-  //fb signin
   fbSignIn(context) async {
     final fb = FacebookLogin();
 
@@ -83,13 +69,9 @@ class AuthService {
         break;
     }
   }
-
-
   resetPasswordLink(String email) {
     FirebaseAuth.instance.sendPasswordResetEmail(email: email);}
 }
-
-
 signIn(String email, String password, context) {
   FirebaseAuth.instance
       .signInWithEmailAndPassword(email: email, password: password)
