@@ -9,8 +9,7 @@ class OTPScreen extends StatefulWidget {
   final String phone;
   OTPScreen(this.phone);
   @override
-  _OTPScreenState createState() => _OTPScreenState();
-}
+  _OTPScreenState createState() => _OTPScreenState();}
 
 class _OTPScreenState extends State<OTPScreen> {
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>(debugLabel: '_scaffoldkey');
@@ -21,9 +20,7 @@ class _OTPScreenState extends State<OTPScreen> {
     color: const Color.fromRGBO(43, 46, 66, 1),
     borderRadius: BorderRadius.circular(10.0),
     border: Border.all(
-      color: const Color.fromRGBO(126, 203, 224, 1),
-    ),
-  );
+      color: const Color.fromRGBO(126, 203, 224, 1),),);
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +29,10 @@ class _OTPScreenState extends State<OTPScreen> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("images/wallpaper.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
+                fit: BoxFit.cover,),),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: Form(key: _scaffoldkey, child: _verifyPhone())));
-  }
+            child: Form(key: _scaffoldkey, child: _verifyPhone())));}
 
 
   _verifyPhone()  {
@@ -52,23 +46,15 @@ class _OTPScreenState extends State<OTPScreen> {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => MenuDashboardPage()),
-                      (route) => false);
-            }
-          });
-        },
+                      (route) => false);}});},
         verificationFailed: (FirebaseAuthException e) {
-          print(e.message);
-        },
+          print(e.message);},
         codeSent: (String verficationID, int resendToken) {
           setState(() {
-            _verificationCode = verficationID;
-          });
-        },
+            _verificationCode = verficationID;});},
         codeAutoRetrievalTimeout: (String verificationID) {
           setState(() {
-            _verificationCode = verificationID;
-          });
-        },
+            _verificationCode = verificationID;});},
         timeout: Duration(seconds: 120));
     return Padding(
             padding: const EdgeInsets.all(30.0),
@@ -83,16 +69,12 @@ class _OTPScreenState extends State<OTPScreen> {
                           Text('  OTP Verification',
                               style: TextStyle(color: Colors.black,
                                 fontSize: SizeConfig.safeBlockHorizontal * 40,
-                                fontWeight: FontWeight.bold,)),],)
-                  ),
+                                fontWeight: FontWeight.bold,)),],)),
                   Container(
                     child: Center(
                       child: Text(
                         'We sent your code to +1${widget.phone}',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-                      ),
-                    ),
-                  ),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),),),),
                   SizedBox(height: 20),
                   buildTimer(),
                   SizedBox(height: 30),
@@ -116,26 +98,14 @@ class _OTPScreenState extends State<OTPScreen> {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(builder: (context) => MenuDashboardPage()),
-                                    (route) => false);
-                          }
-                        });
-                      } catch (e) {
+                                    (route) => false);}});} catch (e) {
                         FocusScope.of(context).unfocus();
                         ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text('invalid OTP')));
-                      }
-                    },
-                  ),
+                            .showSnackBar(SnackBar(content: Text('invalid OTP')));}},),
                   SizedBox(height: 60),
                   Text(
                     "Resend OTP Code",
-                    style: TextStyle(decoration: TextDecoration.underline),
-                  ),
-                ]
-            ),
-
-          );
-  }
+                    style: TextStyle(decoration: TextDecoration.underline),),]),);}
 
 
   Row buildTimer() {
@@ -148,19 +118,10 @@ class _OTPScreenState extends State<OTPScreen> {
           duration: Duration(seconds: 30),
           builder: (_, value, child) => Text(
             "00:${value.toInt()}",
-            style: TextStyle(color: kPrimaryColor),
-          ),
-        ),
-      ],
-    );
-  }
+            style: TextStyle(color: kPrimaryColor),),),],);}
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _verifyPhone();
-  }
-
-  }
+    _verifyPhone();}}
 
