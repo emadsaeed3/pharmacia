@@ -7,7 +7,6 @@ import 'package:pharma/Screens/payment/payment_screen.dart';
 import 'package:pharma/components/build_progress.dart';
 import 'package:pharma/components/defultButton.dart';
 import 'package:pharma/components/navigations.dart';
-import 'package:pharma/components/showToast.dart';
 import 'package:pharma/constants.dart';
 
 class AddressScreen extends StatelessWidget {
@@ -27,9 +26,7 @@ class AddressScreen extends StatelessWidget {
             return
            buildProgress(
              context: context,
-             text: 'Loading....',
-           );
-          }
+             text: 'Loading....',);}
 
           if(state is AddAddressStateSuccess){
             Navigator.pop(context);
@@ -47,11 +44,7 @@ class AddressScreen extends StatelessWidget {
             return
               buildProgress(
                 context: context,
-                text: 'Loading....',
-              );
-          }
-
-        },
+                text: 'Loading....',);}},
         builder: (context,state){
           List address = AddressCubit.get(context).address;
           List addressId = AddressCubit.get(context).addressID;
@@ -82,7 +75,7 @@ class AddressScreen extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(Icons.location_on_outlined,size: 40,color: Colors.blueAccent,),
+                                    Icon(Icons.location_on_outlined,size: 40,color: kPrimaryColor),
                                     SizedBox(width: 12,),
                                     Expanded(
                                       child: Column(
@@ -90,90 +83,43 @@ class AddressScreen extends StatelessWidget {
                                         children: [
                                           Text('Home',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
                                           SizedBox(height: 8,),
-                                          Text(
-                                              '${address[index]['Address']}' ,
-                                            maxLines: 3,
-                                            softWrap: true,
-                                            overflow: TextOverflow.ellipsis,
-
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                          Text('${address[index]['Address']}' ,
+                                            maxLines: 3, softWrap: true, overflow: TextOverflow.ellipsis,),],),),
                                     SizedBox(width: 16,),
                                     GestureDetector(
-                                      onTap: () {
-                                        AddressCubit.get(context)
-                                            .changeIndex(index);
-                                      },
+                                      onTap: () {AddressCubit.get(context).changeIndex(index);},
                                       child: Container(
                                         width: 30,
                                         height: 30,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.all(
-                                              Radius.circular(
-                                                  60.0)),
+                                          borderRadius: BorderRadius.all(Radius.circular(60.0)),
                                           color: checkIndex == index
                                               ? kPrimaryColor
                                               : Colors.white,
                                           border: Border.all(
                                             color: kPrimaryColor,
-                                            width: 2.0,
-                                          ),
-                                        ),
+                                            width: 2.0,),),
                                         child: ClipOval(
                                           child: Center(
-                                              child: Icon(
-                                                Icons.check,
-                                                color: Colors.white,
-                                                size: 15,
-                                              )),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                              child: Icon(Icons.check, color: Colors.white, size: 22,)),),),),],),
                                 SizedBox(height: 10,),
                                 TextButton(onPressed: (){
                                   AddressCubit.get(context).deleteAddress(
                                     documentIdList: addressId,
-                                    index: index,
-                                  );
-                                }, child: Text('Delete Address',style: TextStyle(color: Colors.red),)),
-                              ],
-                            ),
-                          ) ,
+                                    index: index,);}, child: Text('Delete Address',style: TextStyle(color: Colors.red),)),],),) ,
                           separatorBuilder: (context,index)=> Column(
-                            children: [
-                              Divider(
-                                height: 2,
-                                color: Colors.grey,
-                              ),
-                            ],
-                          ),
-                          itemCount: address.length,
-                        ),
-                      ),
-                    ),
-                  ),
-                  fallback: (context)=> SizedBox(height: 1,),
-                ),
+                            children: [Divider(height: 2, color: Colors.grey,),],),
+                          itemCount: address.length,),),),),
+                  fallback: (context)=> SizedBox(height: 1,),),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: InkWell(
-                    onTap: (){
-                      AddressCubit.get(context).addAddress();
-                      },
+                    onTap: (){AddressCubit.get(context).addAddress();},
                     child: Row(
                       children: [
                         Icon(Icons.add,color:kPrimaryColor,size:40,),
                         SizedBox(width: 20,),
-                        Text('Add New Address',style: TextStyle(color: Colors.blueAccent,fontWeight: FontWeight.bold,fontSize: 20),)
-                      ],
-                    ),
-                  ),
-                ),
+                        Text('Add New Address',style: TextStyle(color: kPrimaryColor ,fontWeight: FontWeight.bold,fontSize: 20),)],),),),
                 SizedBox(height: 80,),
                 Align(
                   alignment: AlignmentDirectional.bottomCenter,
@@ -185,18 +131,4 @@ class AddressScreen extends StatelessWidget {
                           navigateTo(context, PaymentScreen(
                               '$pharmacies',
                               '$orderType',
-                             '${address[checkIndex]['Address']}',
-                          ));
-                        },
-                        text: 'Confirm Address',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
+                             '${address[checkIndex]['Address']}',));}, text: 'Confirm Address',),),),],),);},),);}}
