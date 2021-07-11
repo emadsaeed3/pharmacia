@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pharma/Screens/Admin/admin_screen.dart';
 import 'package:pharma/components/authservice.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pharma/components/navigations.dart';
 import 'package:pharma/components/shared_prefrances.dart';
 
 
@@ -31,11 +35,29 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-        Duration(seconds: 3),
-        () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => AuthService().handleAuth())));
+    _checkRole();}
+
+  void _checkRole() async {
+    User user = FirebaseAuth.instance.currentUser;
+    final DocumentSnapshot snap = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+     setState(() {
+       role = snap['role'];
+     });
+     if(role == 'user'){
+       Navigator.of(context).pushReplacement(MaterialPageRoute(
+           builder: (BuildContext context) => AuthService().handleAuth()));
+     } else if(role == 'admin'){
+       navigateNext(AdminScreen());
+     }
   }
+
+  void navigateNext(Widget route) {
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => route));
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
