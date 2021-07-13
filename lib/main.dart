@@ -5,7 +5,6 @@ import 'package:pharma/Screens/Admin/admin_screen.dart';
 import 'package:pharma/components/authservice.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pharma/components/navigations.dart';
 import 'package:pharma/components/shared_prefrances.dart';
 
 
@@ -20,9 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Pharmacia',
-            home: SplashScreen(),);}}
+      debugShowCheckedModeBanner: false,
+      title: 'Pharmacia',
+      home: SplashScreen(),);}}
 
 
 class SplashScreen extends StatefulWidget {
@@ -40,15 +39,15 @@ class _SplashScreenState extends State<SplashScreen> {
   void _checkRole() async {
     User user = FirebaseAuth.instance.currentUser;
     final DocumentSnapshot snap = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-     setState(() {
-       role = snap['role'];
-     });
-     if(role == 'user'){
-       Navigator.of(context).pushReplacement(MaterialPageRoute(
-           builder: (BuildContext context) => AuthService().handleAuth()));
-     } else if(role == 'admin'){
-       navigateNext(AdminScreen());
-     }
+    setState(() {
+      role = snap['role'];
+    });
+    if(role == 'user'){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (BuildContext context) => AuthService().handleAuth()));
+    } else if(role == 'admin'){
+      navigateNext(AdminScreen());
+    }
   }
 
   void navigateNext(Widget route) {
