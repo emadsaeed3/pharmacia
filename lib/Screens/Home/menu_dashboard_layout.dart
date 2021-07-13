@@ -7,6 +7,7 @@ import 'package:pharma/Screens/About_us/about_us.dart';
 import 'package:pharma/Screens/Contact_us/contact_us.dart';
 import 'package:pharma/Screens/Home/cubit/cubit.dart';
 import 'package:pharma/Screens/Home/cubit/state.dart';
+import 'package:pharma/Screens/chat/chat_screen.dart';
 import 'package:pharma/Screens/confirmation/confirmation_screen.dart';
 import 'package:pharma/Screens/orders/orders_screen.dart';
 import 'package:pharma/Screens/pres_upload.dart';
@@ -104,7 +105,7 @@ class _MenuDashboardPageState extends State<MenuDashboardPage> with SingleTicker
                 SizedBox(height: 30),
                 buildMenuItem(text: 'Settings', icon: Icons.settings,onClicked: () {navigateTo(context, UserInfo());}),
                 SizedBox(height: 30),
-                buildMenuItem(text: 'Get Help', icon: Icons.live_help),
+                buildMenuItem(text: 'Get Help', icon: Icons.live_help,onClicked: () {navigateTo(context, ConversationScreen());}),
                 SizedBox(height: 30),
                 buildMenuItem(text: 'Contact Us', icon: Icons.call,onClicked: () {navigateTo(context, ContactUsScreen());}),
                 SizedBox(height: 30),

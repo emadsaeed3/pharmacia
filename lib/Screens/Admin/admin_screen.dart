@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pharma/components/authservice.dart';
 import '../../constants.dart';
 import 'createuserscreen.dart';
 import 'edituserdata.dart';
@@ -9,7 +10,6 @@ class AdminScreen extends StatefulWidget{
   @override
   _AdminScreenState createState() => _AdminScreenState();
 }
-
 
 class _AdminScreenState extends State<AdminScreen> {
   final formKey = new GlobalKey<FormState>();
@@ -20,7 +20,7 @@ class _AdminScreenState extends State<AdminScreen> {
   String phone = " ";
   String role = " ";
   String uid = " ";
-  bool ableToEdit = false;
+  bool ableToEdit = true;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _AdminScreenState extends State<AdminScreen> {
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => EditUser(uid: uid,)));},
         child: Container(
-          width: 230,
+          width: 250,
           padding: EdgeInsets.symmetric(horizontal: 70, vertical: 11),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(29),
@@ -93,6 +93,7 @@ class _AdminScreenState extends State<AdminScreen> {
           child: Center(
             child: Text(
               "Edit User",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 17)),),),) : Container(),
+      SizedBox(height: 30),
       GestureDetector(
         onTap: () async {
           Navigator.push(context, MaterialPageRoute(builder: (context) => CreateUser()));},
@@ -113,6 +114,20 @@ class _AdminScreenState extends State<AdminScreen> {
       Text('Password : ' + password),
       Text('Phone : ' + phone),
       Text('Role : ' + role),
-     ],);
+      SizedBox(height: 20,),
+
+      GestureDetector(
+        onTap: () async {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AuthService().signOut(context)));},
+        child: Container(
+          width: 200,
+          padding: EdgeInsets.symmetric(horizontal: 70, vertical: 11),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(29),
+            color: kPrimaryColor,),
+          child: Center(
+            child: Text(
+                "Log out", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 17)),),),),
+    ],);
   }
 }
